@@ -9,20 +9,32 @@ import org.jetbrains.exposed.sql.Table
 
 object PaymentOptions : IntIdTable() {
     val name = varchar("name", 255)
+    val description = varchar("description", 255)
+    val url = varchar("url", 255)
+    val logoUrl = varchar("logoUrl", 255)
 }
 
 data class DCPaymentOption(
-    val name: String
+    val name: String,
+    val description: String,
+    val url: String,
+    val logoUrl: String
 )
 
 class PaymentOption(id: EntityID<Int>): IntEntity(id) {
     companion object : IntEntityClass<PaymentOption>(PaymentOptions)
 
     var name by PaymentOptions.name
+    var description by PaymentOptions.description
+    var url by PaymentOptions.url
+    var logoUrl by PaymentOptions.logoUrl
 
     fun toDC(): DCPaymentOption =
         DCPaymentOption(
-            name = name
+            name = name,
+            description = description,
+            url = url,
+            logoUrl = logoUrl
         )
 }
 

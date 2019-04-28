@@ -17,7 +17,7 @@ fun Application.module() {
     install(DefaultHeaders)
     install(CallLogging)
     install(WebSockets)
-    install(CORS)
+    install(CORS) { anyHost() }
 
     install(ContentNegotiation) {
         jackson {
