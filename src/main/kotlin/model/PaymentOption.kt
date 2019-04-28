@@ -4,11 +4,11 @@ import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
-import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
 
 object PaymentOptions : IntIdTable() {
     val name = varchar("name", 255)
+    val codename = varchar("codename", 8)
     val description = varchar("description", 255)
     val url = varchar("url", 255)
     val logoUrl = varchar("logoUrl", 255)
@@ -16,6 +16,7 @@ object PaymentOptions : IntIdTable() {
 
 data class DCPaymentOption(
     val name: String,
+    val codename: String,
     val description: String,
     val url: String,
     val logoUrl: String
@@ -25,6 +26,7 @@ class PaymentOption(id: EntityID<Int>): IntEntity(id) {
     companion object : IntEntityClass<PaymentOption>(PaymentOptions)
 
     var name by PaymentOptions.name
+    var codename by PaymentOptions.codename
     var description by PaymentOptions.description
     var url by PaymentOptions.url
     var logoUrl by PaymentOptions.logoUrl
@@ -32,6 +34,7 @@ class PaymentOption(id: EntityID<Int>): IntEntity(id) {
     fun toDC(): DCPaymentOption =
         DCPaymentOption(
             name = name,
+            codename = codename,
             description = description,
             url = url,
             logoUrl = logoUrl

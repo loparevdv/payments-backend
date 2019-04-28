@@ -25,12 +25,18 @@ fun Route.paymentOption(paymentOptionService: PaymentOptionService) {
             call.respond(pos.map { it.toDC() })
         }
 
-        get("/{isocode}") {
+        get("{codename}") {
             val Log = Logger.getLogger("")
-            val pos: List<PaymentOption> = PaymentOptionService().getByISOCode(call.parameters["isocode"]!!)
-            Log.warning(pos.toString())
-            call.respond(pos.map { it.toDC() })
+            val pos: PaymentOption = PaymentOptionService().getByCodename(call.parameters["codename"]!!)
+            call.respond(pos.toDC())
         }
+
+//        get("/{isocode}") {
+//            val Log = Logger.getLogger("")
+//            val pos: List<PaymentOption> = PaymentOptionService().getByISOCode(call.parameters["isocode"]!!)
+//            Log.warning(pos.toString())
+//            call.respond(pos.map { it.toDC() })
+//        }
 
         post("/") {
             val Log = Logger.getLogger("")

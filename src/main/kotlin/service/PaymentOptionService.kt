@@ -14,6 +14,11 @@ class PaymentOptionService {
             PaymentOption.all().toList()
         }
 
+    fun getByCodename(codename: String): PaymentOption =
+        transaction {
+            PaymentOption.find { PaymentOptions.codename eq  codename }.firstOrNull()!!
+        }
+
     fun getByISOCode(isocode: String): List<PaymentOption> =
         // TODO: makes to queries, to be refactored
         transaction {
