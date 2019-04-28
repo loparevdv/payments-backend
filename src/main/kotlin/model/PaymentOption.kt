@@ -12,6 +12,7 @@ object PaymentOptions : IntIdTable() {
     val description = varchar("description", 255)
     val url = varchar("url", 255)
     val logoUrl = varchar("logoUrl", 255)
+    val schema = varchar("schema", 255)
 }
 
 data class DCPaymentOption(
@@ -19,7 +20,8 @@ data class DCPaymentOption(
     val codename: String,
     val description: String,
     val url: String,
-    val logoUrl: String
+    val logoUrl: String,
+    val schema: String
 )
 
 class PaymentOption(id: EntityID<Int>): IntEntity(id) {
@@ -30,6 +32,7 @@ class PaymentOption(id: EntityID<Int>): IntEntity(id) {
     var description by PaymentOptions.description
     var url by PaymentOptions.url
     var logoUrl by PaymentOptions.logoUrl
+    var schema by PaymentOptions.schema
 
     fun toDC(): DCPaymentOption =
         DCPaymentOption(
@@ -37,7 +40,8 @@ class PaymentOption(id: EntityID<Int>): IntEntity(id) {
             codename = codename,
             description = description,
             url = url,
-            logoUrl = logoUrl
+            logoUrl = logoUrl,
+            schema = schema
         )
 }
 
