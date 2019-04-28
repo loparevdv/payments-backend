@@ -25,25 +25,25 @@ fun initialMigration() {
         name = "CUP"
         description = "China Union Pay"
         url = "https://store.raywenderlich.com/products/android-apprentice"
-        logoUrl = "https://files.kerching.raywenderlich.com/mockups/71eb5ec4-4553-4d06-ac57-be2e2ef38e45.png"
+        logoUrl = "https://content.heropay.com/wp-content/uploads/2016/11/China-UnionPay-e1486167123241-768x492.jpg"
     }
     val cupCard = PaymentOption.new {
         name = "CUP/CARD"
         description = "China Union Pay Debit Card"
         url = "https://store.raywenderlich.com/products/kotlin-apprentice"
-        logoUrl = "https://files.kerching.raywenderlich.com/mockups/7d9154f0-41da-459c-b2a2-cb01869a9ee5.png"
+        logoUrl = "http://meihuey.weebly.com/uploads/1/3/9/4/13944488/5413420_orig.jpg"
     }
     val qr = PaymentOption.new {
         name = "QR"
         description = "Thai QR Royal service"
         url = "https://store.raywenderlich.com/products/swift-apprentice"
-        logoUrl = "https://files.kerching.raywenderlich.com/mockups/53ca338b-0797-4027-8df0-f4e06cac6463.png"
+        logoUrl = "https://d2lp05f39ek59n.cloudfront.net/uploads/SiamPay_product_img_241794887_siampay.png"
     }
     val thaiCard = PaymentOption.new {
         name = "THAI CARD"
         description = "Thai national card system"
         url = "https://store.raywenderlich.com/products/machine-learning-by-tutorials"
-        logoUrl = "https://files.kerching.raywenderlich.com/mockups/2e38ffeb-be15-4864-8899-d1f060b93291.png"
+        logoUrl = "https://upload.wikimedia.org/wikipedia/commons/a/ab/TMBOfficialLogo2015.jpg"
     }
     thai.paymentOptions = SizedCollection(listOf(qr, thaiCard))
     china.paymentOptions = SizedCollection(listOf(cup, cupCard))
