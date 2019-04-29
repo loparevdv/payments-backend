@@ -6,6 +6,8 @@ import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.Table
 
+
+// TODO: is it possible to reduce bellow classes boilerplate?
 object PaymentOptions : IntIdTable() {
     val name = varchar("name", 255)
     val codename = varchar("codename", 8)

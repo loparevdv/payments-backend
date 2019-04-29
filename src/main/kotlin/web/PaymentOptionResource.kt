@@ -45,6 +45,7 @@ fun Route.paymentOption(paymentOptionService: PaymentOptionService) {
             Log.warning(dcpaymentOption.name)
 
             transaction {
+                // TODO: refactor for fromDCPaymentOption
                 val newPaymentOption = PaymentOption.new {
                     name = dcpaymentOption.name
                 }
