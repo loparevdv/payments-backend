@@ -20,6 +20,8 @@ apply plugin: 'kotlinx-serialization'
 
 apply plugin: 'application'
 
+mainClassName = "MainKt"
+
 sourceCompatibility = 1.8
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
