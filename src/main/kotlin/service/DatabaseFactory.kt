@@ -6,10 +6,8 @@ import com.zaxxer.hikari.HikariConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import model.*
-import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.sql.SchemaUtils.create
 import org.jetbrains.exposed.sql.SizedCollection
-import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun initialMigration() {
@@ -35,7 +33,7 @@ fun initialMigration() {
         description = "China Union Pay Debit Card"
         url = "https://store.raywenderlich.com/products/kotlin-apprentice"
         logoUrl = "http://meihuey.weebly.com/uploads/1/3/9/4/13944488/5413420_orig.jpg"
-        schema = """["name", "surname", "bank card"]"""
+        schema = """["name", "surname", "bank_card"]"""
     }
     val qr = PaymentOption.new {
         name = "QR"

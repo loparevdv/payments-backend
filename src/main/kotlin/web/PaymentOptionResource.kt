@@ -11,6 +11,7 @@ import model.DCPaymentOption
 import service.PaymentOptionService
 import java.util.logging.Logger
 import com.fasterxml.jackson.module.kotlin.readValue
+import io.ktor.http.HttpStatusCode
 import model.PaymentOption
 import org.jetbrains.exposed.sql.SizedIterable
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -29,6 +30,23 @@ fun Route.paymentOption(paymentOptionService: PaymentOptionService) {
             val Log = Logger.getLogger("")
             val pos: PaymentOption = PaymentOptionService().getByCodename(call.parameters["codename"]!!)
             call.respond(pos.toDC())
+        }
+
+        post("{codename}") {
+            val Log = Logger.getLogger("")
+
+            val requestText = call.receiveText()
+            Log.warning(requestText)
+
+            val mapper = jacksonObjectMapper()
+            val requestMap: Map<String, String> = mapper.readValue(requestText)
+            val isValid = requestMap.all {
+                it.component2() != ""
+            }
+            if (isValid) {
+                call.respond("{}")
+            }
+            call.respond(HttpStatusCode.BadRequest, "Invalid format")
         }
 
 //        get("/{isocode}") {

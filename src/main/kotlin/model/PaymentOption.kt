@@ -17,6 +17,7 @@ object PaymentOptions : IntIdTable() {
     val schema = varchar("schema", 255)
 }
 
+
 data class DCPaymentOption(
     val name: String,
     val codename: String,
@@ -25,6 +26,7 @@ data class DCPaymentOption(
     val logoUrl: String,
     val schema: String
 )
+
 
 class PaymentOption(id: EntityID<Int>): IntEntity(id) {
     companion object : IntEntityClass<PaymentOption>(PaymentOptions)
@@ -46,6 +48,7 @@ class PaymentOption(id: EntityID<Int>): IntEntity(id) {
             schema = schema
         )
 }
+
 
 object Countries : IntIdTable() {
     val name = varchar("name", 255)
