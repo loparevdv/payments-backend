@@ -53,7 +53,9 @@ fun Route.paymentOption(paymentOptionService: PaymentOptionService) {
                 }
                 call.respond("""{"invoice_id": ${invoice!!.id}}""")
             } else {
-                errors = requestMap.map {
+                errors = requestMap.filter {
+                    it.component2() == ""
+                }.toMap().map {
                     it.component1() to "Not empty required"
                 }.toMap()
             }
