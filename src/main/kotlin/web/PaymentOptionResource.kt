@@ -36,12 +36,12 @@ fun Route.paymentOption(paymentOptionService: PaymentOptionService) {
             val Log = Logger.getLogger("")
 
             val requestText = call.receiveText()
-            Log.warning(requestText)
-
             val mapper = jacksonObjectMapper()
             val requestMap: Map<String, String> = mapper.readValue(requestText)
             val isValid = requestMap.all { it.component2() != "" }
             var invoice: Invoice? = null
+            var errors: Map<String, String>? = null
+
             if (isValid) {
                 transaction {
                     invoice = Invoice.new {
@@ -52,8 +52,13 @@ fun Route.paymentOption(paymentOptionService: PaymentOptionService) {
                     }
                 }
                 call.respond("""{"invoice_id": ${invoice!!.id}}""")
+            } else {
+                errors = requestMap.map {
+                    it.component1() to "Not empty required"
+                }.toMap()
             }
-            call.respond(HttpStatusCode.BadRequest, "Invalid format")
+            val jsonErrors = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(errors)
+            call.respond(HttpStatusCode.BadRequest, jsonErrors!!)
         }
 
 //        get("/{isocode}") {
