@@ -11,7 +11,9 @@ import service.PaymentOptionService
 import java.util.logging.Logger
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.ktor.http.HttpStatusCode
+import model.Invoice
 import model.PaymentOption
+import model.PaymentOptions
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
@@ -38,11 +40,18 @@ fun Route.paymentOption(paymentOptionService: PaymentOptionService) {
 
             val mapper = jacksonObjectMapper()
             val requestMap: Map<String, String> = mapper.readValue(requestText)
-            val isValid = requestMap.all {
-                it.component2() != ""
-            }
+            val isValid = requestMap.all { it.component2() != "" }
+            var invoice: Invoice? = null
             if (isValid) {
-                call.respond("{}")
+                transaction {
+                    invoice = Invoice.new {
+                        payload = requestText
+                        paymentOption = PaymentOption.find {
+                            PaymentOptions.codename eq call.parameters["codename"]!!
+                        }.firstOrNull()!!
+                    }
+                }
+                call.respond("""{"invoice_id": ${invoice!!.id}}""")
             }
             call.respond(HttpStatusCode.BadRequest, "Invalid format")
         }

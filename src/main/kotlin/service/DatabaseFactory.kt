@@ -63,6 +63,7 @@ object DatabaseFactory {
             create(Countries)
             create(PaymentOptions)
             create(CountryOptions)
+            create(Invoices)
             initialMigration()
         }
     }
